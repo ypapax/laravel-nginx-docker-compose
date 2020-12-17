@@ -16,8 +16,6 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www
-    networks:
-      - app-network
     volumes:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
@@ -31,8 +29,6 @@ services:
     ports:
       - "80:80"
 #      - "443:443"
-    networks:
-      - app-network
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
@@ -50,16 +46,10 @@ services:
       MYSQL_ROOT_PASSWORD: your_mysql_root_password
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
-    networks:
-      - app-network
     volumes:
       - dbdata:/var/lib/mysql
       - ./mysql/my.cnf:/etc/mysql/my.cnf
 
-#Docker Networks
-networks:
-  app-network:
-    driver: bridge
 #Volumes
 volumes:
   dbdata:
